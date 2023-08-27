@@ -5,11 +5,15 @@ jobs:
   check-bats-version:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        stage: ['stg', 'prod']
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
+      - run: echo ${{ matrix.stage }}
       - run: npm install -g bats
       - run: bats -v > output.log
       - name: Upload ouput file
@@ -17,27 +21,27 @@ jobs:
         with:
           name: ouput-log-file
           path: output.log
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJson(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
+      # - name: Dump GitHub context
+      #   env:
+      #     GITHUB_CONTEXT: ${{ toJson(github) }}
+      #   run: echo "$GITHUB_CONTEXT"
+      # - name: Dump job context
+      #   env:
+      #     JOB_CONTEXT: ${{ toJson(job) }}
+      #   run: echo "$JOB_CONTEXT"
+      # - name: Dump steps context
+      #   env:
+      #     STEPS_CONTEXT: ${{ toJson(steps) }}
+      #   run: echo "$STEPS_CONTEXT"
+      # - name: Dump runner context
+      #   env:
+      #     RUNNER_CONTEXT: ${{ toJson(runner) }}
+      #   run: echo "$RUNNER_CONTEXT"
+      # - name: Dump strategy context
+      #   env:
+      #     STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+      #   run: echo "$STRATEGY_CONTEXT"
+      # - name: Dump matrix context
+      #   env:
+      #     MATRIX_CONTEXT: ${{ toJson(matrix) }}
+      #   run: echo "$MATRIX_CONTEXT"
