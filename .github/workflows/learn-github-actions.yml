@@ -10,4 +10,9 @@ jobs:
         with:
           node-version: '18'
       - run: npm install -g bats
-      - run: bats -v
+      - run: bats -v > output.log
+      - name: Upload ouput file
+        uses: actions/upload-artifact@v3
+        with:
+          name: ouput-log-file
+          path: output.log
