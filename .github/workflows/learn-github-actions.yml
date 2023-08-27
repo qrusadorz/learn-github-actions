@@ -1,16 +1,21 @@
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+on:
+  push:
+    branches: main
+
 jobs:
-  check-bats-version:
-    if: ${{ github.ref == 'refs/heads/main' }}
+  build:
+    # if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         stage: ['stg', 'prod']
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
       - run: echo ${{ matrix.stage }}
@@ -45,3 +50,12 @@ jobs:
       #   env:
       #     MATRIX_CONTEXT: ${{ toJson(matrix) }}
       #   run: echo "$MATRIX_CONTEXT"
+  deploy:
+    # if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+   
