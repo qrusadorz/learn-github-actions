@@ -54,6 +54,7 @@ jobs:
     # if: ${{ github.ref == 'refs/heads/main' }}
     needs: [build]
     environment: Production
+    # environment: Staging
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
