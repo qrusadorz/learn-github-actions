@@ -3,10 +3,14 @@ run-name: ${{ github.actor }} is learning GitHub Actions
 on:
   push:
     branches: main
- 
+    tags:
+      - 'v*'
+
 env:
   # DAY_OF_WEEK: ${{ github.actor }}
   LLF: ${{ vars.LGA_FILE_NAME }}
+  STAGE_STAGING: Staging
+  STAGE_PRODUCTION: Production
     
 jobs:
   build:
@@ -14,11 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     # strategy:
     #   matrix:
-    #     stage: ['stg', 'prod']
-    strategy:
-      matrix:
-        environment: [Staging, Production]
-    environment: ${{ matrix.environment }}
+    #     environment: [env.STAGE_STAGING, env.STAGE_STAGING]
+    # environment: ${{ matrix.environment }}
+    environment: ${{ vars.STAGE_STAGING }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -61,14 +63,15 @@ jobs:
         run: echo "$MATRIX_CONTEXT"
   deploy:
     # if: ${{ github.ref == 'refs/heads/main' }}
-    # needs: [build]
+    needs: [build]
     # environment: Production
     # environment: Staging
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        environment: [Staging, Production]
-    environment: ${{ matrix.environment }}
+    # strategy:
+    #   matrix:
+    #     environment: [env.STAGE_STAGING, env.STAGE_STAGING]
+    # environment: ${{ matrix.environment }}
+    environment: ${{ vars.STAGE_STAGING }}
     steps:
       - name: Dump GitHub context
         env:
