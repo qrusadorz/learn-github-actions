@@ -11,6 +11,8 @@ env:
   LLF: ${{ vars.LGA_FILE_NAME }}
   STAGE_STAGING: Staging
   STAGE_PRODUCTION: Production
+  PUSH_FROM: ${{ startsWith(github.ref, 'refs/tags/v') && 'Production' || 'Staging' }}
+  # "ref": "refs/tags/v0.02-beta",
     
 jobs:
   build:
