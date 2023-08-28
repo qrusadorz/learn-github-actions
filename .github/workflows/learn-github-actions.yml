@@ -80,6 +80,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - run: echo ${{ env.LLF }}
+      - run: echo ${{ vars.LGA_FILE_NAME }}
 
 
    
