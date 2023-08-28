@@ -6,7 +6,8 @@ on:
  
 env:
   # DAY_OF_WEEK: ${{ github.actor }}
-  LLF: ${{ vars.LGA_FILE_NAME }}
+  # STAGE_STAGING: ${{ vars.LGA_FILE_NAME }}
+  # STAGE_STAGING: ${{ vars.LGA_FILE_NAME }}
     
 jobs:
   build:
@@ -17,7 +18,7 @@ jobs:
     #     stage: ['stg', 'prod']
     strategy:
       matrix:
-        environment: [staging, production]
+        environment: [Staging, Production]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -65,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        environment: [staging, production]
+        environment: [Staging, Production]
     steps:
       - name: Dump GitHub context
         env:
