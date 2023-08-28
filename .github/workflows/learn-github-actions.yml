@@ -21,7 +21,8 @@ jobs:
     #   matrix:
     #     environment: [env.STAGE_STAGING, env.STAGE_STAGING]
     # environment: ${{ matrix.environment }}
-    environment: ${{ vars.PUSH_FROM }}
+    environment: 
+      name: ${{ vars.PUSH_FROM }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
