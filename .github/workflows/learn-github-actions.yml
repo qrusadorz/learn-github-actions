@@ -63,6 +63,8 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
+      - name: Display LGA_FILE_NAME
+        run: echo ${{ vars.LGA_FILE_NAME }}
   deploy:
     # if: ${{ github.ref == 'refs/heads/main' }}
     needs: [build]
@@ -80,7 +82,8 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - run: echo ${{ env.LLF }}
-      - run: echo ${{ vars.LGA_FILE_NAME }}
+      - name: Display LGA_FILE_NAME
+        run: echo ${{ vars.LGA_FILE_NAME }}
 
 
    
