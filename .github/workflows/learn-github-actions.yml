@@ -6,8 +6,7 @@ on:
  
 env:
   # DAY_OF_WEEK: ${{ github.actor }}
-  # STAGE_STAGING: ${{ vars.LGA_FILE_NAME }}
-  # STAGE_STAGING: ${{ vars.LGA_FILE_NAME }}
+  LLF: ${{ vars.LGA_FILE_NAME }}
     
 jobs:
   build:
@@ -34,6 +33,7 @@ jobs:
         with:
           name: ouput-log-file
           path: output.log
+      - run: echo ${{ env.LLF }}
       # - name: Dump GitHub context
       #   env:
       #     GITHUB_CONTEXT: ${{ toJson(github) }}
