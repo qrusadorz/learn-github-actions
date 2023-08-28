@@ -61,7 +61,7 @@ jobs:
         run: echo "$MATRIX_CONTEXT"
   deploy:
     # if: ${{ github.ref == 'refs/heads/main' }}
-    needs: [build]
+    # needs: [build]
     # environment: Production
     # environment: Staging
     runs-on: ubuntu-latest
