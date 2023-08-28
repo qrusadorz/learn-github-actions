@@ -73,7 +73,8 @@ jobs:
     #   matrix:
     #     environment: [env.STAGE_STAGING, env.STAGE_STAGING]
     # environment: ${{ matrix.environment }}
-    environment: ${{ vars.PUSH_FROM }}
+    # environment: ${{ vars.PUSH_FROM }}
+    environment: 'Production'
     steps:
       - name: Dump GitHub context
         env:
