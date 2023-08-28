@@ -22,7 +22,7 @@ jobs:
     #   matrix:
     #     environment: [env.STAGE_STAGING, env.STAGE_STAGING]
     # environment: ${{ matrix.environment }}
-    environment: ${{ vars.STAGE_STAGING }}
+    environment: ${{ vars.PUSH_FROM }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -73,12 +73,13 @@ jobs:
     #   matrix:
     #     environment: [env.STAGE_STAGING, env.STAGE_STAGING]
     # environment: ${{ matrix.environment }}
-    environment: ${{ vars.STAGE_STAGING }}
+    environment: ${{ vars.PUSH_FROM }}
     steps:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - run: echo ${{ env.LLF }}
+
 
    
