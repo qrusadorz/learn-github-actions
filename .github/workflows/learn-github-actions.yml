@@ -8,7 +8,6 @@ on:
 
 env:
   # DAY_OF_WEEK: ${{ github.actor }}
-  LLF: ${{ vars.LGA_FILE_NAME }}
   STAGE_STAGING: Staging
   STAGE_PRODUCTION: Production
   PUSH_FROM: ${{ startsWith(github.ref, 'refs/tags/v') && 'Production' || 'Staging' }}
@@ -30,7 +29,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: echo ${{ matrix.stage }}
+      # - run: echo ${{ matrix.stage }}
       - run: npm install -g bats
       - run: bats -v > output.log
       - name: Upload ouput file
@@ -38,7 +37,6 @@ jobs:
         with:
           name: ouput-log-file
           path: output.log
-      - run: echo ${{ env.LLF }}
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -81,7 +79,6 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - run: echo ${{ env.LLF }}
       - name: Display LGA_FILE_NAME
         run: echo ${{ vars.LGA_FILE_NAME }}
 
