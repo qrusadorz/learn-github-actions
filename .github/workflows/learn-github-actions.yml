@@ -3,6 +3,10 @@ run-name: ${{ github.actor }} is learning GitHub Actions
 on:
   push:
     branches: main
+ 
+env:
+  # DAY_OF_WEEK: ${{ github.actor }}
+  LLF: ${{ vars.LGA_FILE_NAME }}
 
 jobs:
   build:
@@ -61,4 +65,6 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+      - run: echo ${{ env.LLF }}
+
    
