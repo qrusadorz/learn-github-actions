@@ -1,0 +1,18 @@
+name: learn-github-actions-dev
+# run-name: ${{ github.actor }} is learning GitHub Actions
+on:
+  push:
+    # branches: main
+    tags:
+      - 'release/staging/*'
+
+env:
+  STAGE_STAGING: Production
+
+jobs:
+  deploy:
+    uses: qrusadorz/learn-github-actions/.github/workflows/deploy.yml@main
+    with:
+      envstagevalue: Production
+      # envstagevalue: ${{ vars.STAGE_STAGING  }}
+  
