@@ -14,6 +14,6 @@ env:
 
 jobs:
   deploy:
-    uses: qrusadorz/learn-github-actions/.github/workflows/deploy.yaml@main
+    uses: qrusadorz/learn-github-actions/.github/workflows/deploy.yml@main
     with:
       envstage: ${{ vars.STAGE_STAGING }}
