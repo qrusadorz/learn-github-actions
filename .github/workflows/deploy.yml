@@ -1,0 +1,94 @@
+on:
+  workflow_call:
+    inputs:
+      envstage:
+        description: 'A username passed from the caller workflow'
+        # default: 'john-doe'
+        required: true
+        type: string
+
+env:
+  # DAY_OF_WEEK: ${{ github.actor }}
+  STAGE_BY_INPUT: ${{ inputs.envstage }}
+  STAGE_PRODUCTION: Production
+  PUSH_FROM: ${{ startsWith(github.ref, 'refs/tags/v') && 'Production' || 'Staging' }}
+  # "ref": "refs/tags/v0.02-beta",
+    
+jobs:
+  build:
+    # if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     environment: [env.STAGE_STAGING, env.STAGE_STAGING]
+    # environment: ${{ matrix.environment }}
+    environment: 
+      name: ${{ startsWith(github.ref, 'refs/tags/v') && 'Production' || 'Staging' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      # - run: echo ${{ matrix.stage }}
+      - run: npm install -g bats
+      - run: bats -v > output.log
+      - name: Upload ouput file
+        uses: actions/upload-artifact@v3
+        with:
+          name: ouput-log-file
+          path: output.log
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
+      - name: Display LGA_FILE_NAME
+        run: echo ${{ vars.LGA_FILE_NAME }}
+      - name: Display STAGE_BY_INPUT
+        run: echo ${{ env.STAGE_BY_INPUT }}
+  deploy:
+    # if: ${{ github.ref == 'refs/heads/main' }}
+    needs: [build]
+    # environment: Production
+    # environment: Staging
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     environment: [env.STAGE_STAGING, env.STAGE_STAGING]
+    # environment: ${{ matrix.environment }}
+    # environment: 'Production'
+    environment: 
+      name: ${{ startsWith(github.ref, 'refs/tags/v') && 'Production' || 'Staging' }}
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Display LGA_FILE_NAME
+        run: echo ${{ vars.LGA_FILE_NAME }}
+      - name: Display STAGE_BY_INPUT
+        run: echo ${{ env.STAGE_BY_INPUT }}
+
+
+   
