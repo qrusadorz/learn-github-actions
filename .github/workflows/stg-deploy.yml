@@ -4,7 +4,7 @@ on:
   push:
     # branches: main
     tags:
-      - 'release/staging/*'
+      - release/staging/*
 
 # env:
 #   STAGE_STAGING: Production
