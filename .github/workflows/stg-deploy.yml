@@ -6,8 +6,8 @@ on:
     tags:
       - 'release/staging/*'
 
-env:
-  STAGE_STAGING: Production
+# env:
+#   STAGE_STAGING: Production
 
 jobs:
   deploy:

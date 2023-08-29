@@ -6,8 +6,8 @@ on:
     # tags:
     #   - 'v*'
 
-env:
-  STAGE_STAGING: Staging
+# env:
+#   STAGE_STAGING: Staging
 
 jobs:
   deploy:
