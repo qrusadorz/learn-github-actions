@@ -11,7 +11,8 @@ on:
 
 jobs:
   deploy:
-    uses: qrusadorz/learn-github-actions/.github/workflows/deploy.yml@main
+    # uses: qrusadorz/learn-github-actions/.github/workflows/deploy.yml@main
+    uses: ./.github/workflows/deploy.yml
     with:
       envstagevalue: Production
       # envstagevalue: ${{ vars.STAGE_STAGING  }}
