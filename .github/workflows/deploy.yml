@@ -3,7 +3,7 @@ name: Deploy workflow
 on:
   workflow_call:
     inputs:
-      envstage:
+      envstagevalue:
         description: 'A username passed from the caller workflow'
         # default: 'john-doe'
         required: true
@@ -11,7 +11,7 @@ on:
 
 env:
   # DAY_OF_WEEK: ${{ github.actor }}
-  STAGE_BY_INPUT: ${{ inputs.envstage }}
+  STAGE_BY_INPUT: ${{ inputs.envstagevalue }}
   STAGE_PRODUCTION: Production
   PUSH_FROM: ${{ startsWith(github.ref, 'refs/tags/v') && 'Production' || 'Staging' }}
   # "ref": "refs/tags/v0.02-beta",
