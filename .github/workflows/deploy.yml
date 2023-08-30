@@ -8,6 +8,9 @@ on:
         # default: 'john-doe'
         required: true
         type: string
+    secrets:
+      SECRET_VALUE_FROM_CALLER:
+        required: true
 
 env:
   # DAY_OF_WEEK: ${{ github.actor }}
@@ -72,6 +75,8 @@ jobs:
         run: echo ${{ env.STAGE_BY_INPUT }}
       - name: Display SECRET
         run: echo ${{ secrets.SECRET_VALUE }}
+      - name: Display SECRET
+        run: echo ${{ secrets.SECRET_VALUE_FROM_CALLER }}
   deploy:
     # if: ${{ github.ref == 'refs/heads/main' }}
     needs: [build]
@@ -97,6 +102,8 @@ jobs:
         run: echo ${{ env.STAGE_BY_INPUT }}
       - name: Display SECRET
         run: echo ${{ secrets.SECRET_VALUE }}
+      - name: Display SECRET
+        run: echo ${{ secrets.SECRET_VALUE_FROM_CALLER }}
 
 
    

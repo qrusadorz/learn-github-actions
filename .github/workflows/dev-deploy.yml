@@ -15,6 +15,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       envstagevalue: Staging
-      secrets: inherit
+    secrets: #inherit
+      SECRET_VALUE_FROM_CALLER: ${{ secrets.SECRET_VALUE_FROM_CALLER }}
       # envstagevalue: ${{ vars.STAGE_STAGING  }}
   
