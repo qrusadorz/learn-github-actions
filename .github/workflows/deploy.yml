@@ -70,6 +70,8 @@ jobs:
         run: echo ${{ vars.LGA_FILE_NAME }}
       - name: Display STAGE_BY_INPUT
         run: echo ${{ env.STAGE_BY_INPUT }}
+      - name: Display SECRET
+        run: echo ${{ secrets.SECRET_VALUE }}
   deploy:
     # if: ${{ github.ref == 'refs/heads/main' }}
     needs: [build]
@@ -93,6 +95,8 @@ jobs:
         run: echo ${{ vars.LGA_FILE_NAME }}
       - name: Display STAGE_BY_INPUT
         run: echo ${{ env.STAGE_BY_INPUT }}
+      - name: Display SECRET
+        run: echo ${{ secrets.SECRET_VALUE }}
 
 
    
