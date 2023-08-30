@@ -16,6 +16,6 @@ jobs:
     with:
       envstagevalue: Staging
     secrets: #inherit
-      SECRET_VALUE_FROM_CALLER: ${{ secrets.SECRET_VALUE_FROM_CALLER }}
+      SECRET_VALUE_FROM_CALLER: ${{ secrets.SECRET_VALUE_FOR_DEV }}
       # envstagevalue: ${{ vars.STAGE_STAGING  }}
   
